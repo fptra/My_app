@@ -190,7 +190,7 @@ song_names = st.text_area("#### Enter your song names:")
 # The minimum value for the slider is set to 1.
 # The maximum value for the slider is set to 30.
 # The initial/default value is set to 15.
-n_recommendations = st.slider("Select the number of recommendations that you want:", 1, 30, 15)
+n_recommendations = 15
 
 # Convert input to list of song names
 input_song_names = song_names.strip().split('\n') if song_names else []
