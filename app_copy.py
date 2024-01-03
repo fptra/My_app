@@ -81,7 +81,7 @@ def calculate_mean_vector(song_list, dataset):
         song_data = find_song_data(song_info['track_name'], dataset)
         
         if song_data is None:
-            print(f"sorry: {song_info['track_name ']} is not found in the list") 
+            print(f"sorry: {song_info['track_name']} is not found in the list") 
             return None
         
         song_vector = song_data[Num_columns].values
