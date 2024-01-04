@@ -176,8 +176,9 @@ st.markdown("""
     
     This system helps you discover songs similar to the ones you like. 
     It considers features like the popularity of the songs (metadata features) and various sound aspects (audio features).
-    The recommended songs will be listed in order, with the most similar songs appearing first and followed by the less similar ones. .
-    Our collection includes music from the year 1986 to 2023, ensuring a diverse selection for your musical journey.
+    The recommended songs will be listed in order, with the most similar songs appearing first and followed by the less similar ones.
+    Our collection includes music from the years 1986 to 2023, ensuring a diverse selection for your musical journey.
+    If you don't know which song to input, check the top 10 most popular songs in 2023.
     We hope you enjoy the experience!
 """)
 
@@ -190,6 +191,7 @@ song_names = st.text_area("#### Enter your song names:")
 # The minimum value for the slider is set to 1.
 # The maximum value for the slider is set to 30.
 # The initial/default value is set to 15.
+#n_recommendations = st.slider("Select the number of recommendations that you want:", 1, 30, 15)
 n_recommendations = 15
 
 # Convert input to list of song names
@@ -219,7 +221,7 @@ if st.button('Recommend'):
             for i, song in enumerate(recommended_songs):
                 st.markdown(f"**{i + 1}. {song['track_name']}** by {song['principal_artist_name']} ({song['year']})")
                 st.image(song['album_cover_url'], width=170)  # Adjust the width as needed
-                st.markdown("<br>", unsafe_allow_html=True)  # Add space between songs
+                
 
 
 st.markdown("***")
@@ -228,31 +230,52 @@ st.markdown("***")
 #After this code-tiada masalah dh
 
 # Display the top songs by popularity with album covers for the top 5 in 2023
-st.subheader('Top 5 Most Popular songs in 2023')
+st.subheader('Top 10 Most Popular songs in 2023')
 
 # Convert 'year' column to datetime format
 data['year'] = pd.to_datetime(data['year'], format='%Y')
 
 # Get the top 5 most popular songs in 2023
-top_5_songs_data = data[data['year'].dt.year == 2023].nlargest(6, 'popularity')
+top_10_songs_data = data[data['year'].dt.year == 2023].nlargest(10, 'popularity')
 
-# Add album covers and song details in a horizontal layout
-col1, col2, col3, col4, col5= st.columns(5)
+# Create two rows with 5 columns each
+col1, col2, col3, col4, col5 = st.columns(5)
+col6, col7, col8, col9, col10 = st.columns(5)
+
+# Display the first 5 songs in the first row
 with col1:
-    st.text(top_5_songs_data.iloc[0]['track_name'])
-    st.image(get_song_album_cover_url(top_5_songs_data.iloc[0]['track_name'], top_5_songs_data.iloc[0]['principal_artist_name']), width=130)
+    st.text(top_10_songs_data.iloc[0]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[0]['track_name'], top_10_songs_data.iloc[0]['principal_artist_name']), width=130)
 with col2:
-    st.text(top_5_songs_data.iloc[1]['track_name'])
-    st.image(get_song_album_cover_url(top_5_songs_data.iloc[1]['track_name'], top_5_songs_data.iloc[1]['principal_artist_name']), width=130)
+    st.text(top_10_songs_data.iloc[1]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[1]['track_name'], top_10_songs_data.iloc[1]['principal_artist_name']), width=130)
 with col3:
-    st.text(top_5_songs_data.iloc[2]['track_name'])
-    st.image(get_song_album_cover_url(top_5_songs_data.iloc[2]['track_name'], top_5_songs_data.iloc[2]['principal_artist_name']), width=130)
+    st.text(top_10_songs_data.iloc[2]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[2]['track_name'], top_10_songs_data.iloc[2]['principal_artist_name']), width=130)
 with col4:
-    st.text(top_5_songs_data.iloc[3]['track_name'])
-    st.image(get_song_album_cover_url(top_5_songs_data.iloc[3]['track_name'], top_5_songs_data.iloc[3]['principal_artist_name']), width=130)
+    st.text(top_10_songs_data.iloc[3]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[3]['track_name'], top_10_songs_data.iloc[3]['principal_artist_name']), width=130)
 with col5:
-    st.text(top_5_songs_data.iloc[4]['track_name'])
-    st.image(get_song_album_cover_url(top_5_songs_data.iloc[4]['track_name'], top_5_songs_data.iloc[4]['principal_artist_name']), width=130)
+    st.text(top_10_songs_data.iloc[4]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[4]['track_name'], top_10_songs_data.iloc[4]['principal_artist_name']), width=130)
+
+# Display the next 5 songs in the second row
+with col6:
+    st.text(top_10_songs_data.iloc[5]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[5]['track_name'], top_10_songs_data.iloc[5]['principal_artist_name']), width=130)
+with col7:
+    st.text(top_10_songs_data.iloc[6]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[6]['track_name'], top_10_songs_data.iloc[6]['principal_artist_name']), width=130)
+with col8:
+    st.text(top_10_songs_data.iloc[7]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[7]['track_name'], top_10_songs_data.iloc[7]['principal_artist_name']), width=130)
+with col9:
+    st.text(top_10_songs_data.iloc[8]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[8]['track_name'], top_10_songs_data.iloc[8]['principal_artist_name']), width=130)
+with col10:
+    st.text(top_10_songs_data.iloc[9]['track_name'])
+    st.image(get_song_album_cover_url(top_10_songs_data.iloc[9]['track_name'], top_10_songs_data.iloc[9]['principal_artist_name']), width=130)
+
 
 
 
@@ -310,3 +333,9 @@ fig_top_artists = px.bar(top_artists, x=top_artists.index, y=top_artists.values,
 fig_top_artists.update_xaxes(categoryorder='total descending')
 fig_top_artists.update_layout(height=1000, width=1000, showlegend=False)
 st.plotly_chart(fig_top_artists)
+
+
+
+
+
+
