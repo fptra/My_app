@@ -179,13 +179,15 @@ st.markdown("""
     The recommended songs will be listed in order, with the most similar songs appearing first and followed by the less similar ones.
     Our collection includes music from the years 1986 to 2023, ensuring a diverse selection for your musical journey.
     If you don't know which song to input, check the top 10 most popular songs in 2023.
+    You can input more than one song.
+    
     We hope you enjoy the experience!
 """)
 
 
 
 # Input for song names (use st.text_input or st.text_area)
-song_names = st.text_area("#### Enter your song names:")
+song_names = st.text_area("#### Enter your song names (one per line):")
 
 # Slider to select the number of recommendations
 # The minimum value for the slider is set to 1.
