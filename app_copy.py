@@ -186,8 +186,15 @@ st.markdown("""
 
 
 
-# Input for song names (use st.text_input or st.text_area)
-song_names = st.text_area("#### Enter your song names (one per line):")
+# Create a dropdown menu for song selection
+song_list = data['track_name'].unique()
+selected_songs = st.multiselect("#### Select or type the song names", song_list)
+
+# Display selected songs
+if selected_songs:
+    st.info("#### Selected Songs:")
+    for i, song in enumerate(selected_songs, start=1):
+        st.success(f"{i}. {song}")
 
 # Slider to select the number of recommendations
 # The minimum value for the slider is set to 1.
@@ -196,14 +203,13 @@ song_names = st.text_area("#### Enter your song names (one per line):")
 #n_recommendations = st.slider("Select the number of recommendations that you want:", 1, 30, 15)
 n_recommendations = 15
 
-# Convert input to list of song names
-input_song_names = song_names.strip().split('\n') if song_names else []
+
 
 # Button to recommend songs
 # Button to recommend songs
 if st.button('Recommend'):
     # Convert input to list of seed songs
-    seed_songs = [{'track_name': name.lower()} for name in input_song_names]
+    seed_songs = [{'track_name': name.lower()} for name in selected_songs]
 
     # Filter out empty names
     seed_songs = [song for song in seed_songs if song['track_name']]
