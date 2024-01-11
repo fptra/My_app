@@ -59,7 +59,7 @@ data = data.dropna()
 # Use several numerical columns to consider for similarity calculations
 Num_columns = ['popularity','acousticness',
        'danceability', 'energy', 'instrumentalness', 'key', 'liveness',
-       'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'duration_ms',
+       'mode', 'speechiness', 'tempo', 'time_signature', 'valence',
         'principal_artist_followers', 'duration_min']
 
 
